@@ -54,25 +54,32 @@ public static void setLicenseKey(String lic) {
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // methods
+// getMap is used by a string object to print out the values of certain parameters the method is given.
+// the getMap method only returns values without any calculations or in this java file.
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public static String getMap(double lat, double lon) {
   return getMap(lat, lon, SizeMax, SizeMax);
+  //returns latitude, longitude, 512, 512
 }
 
 public static String getMap(double lat, double lon, int sizeW, int sizeH) {
   return getMap(lat, lon, sizeW, sizeH, ZoomDefault);
+  //returns latitude, longitude, sizeW from input, sizeH from input, 10
 }
 
 public static String getMap(double lat, double lon, int sizeW, int sizeH, int zoom) {
   return _map.getURI(lat, lon, sizeW, sizeH, zoom);
+  //returns latitude, longitude, sizeW from input, sizeH from input, zoom from input
 }
 
 public static String getMap(double lat, double lon, int sizeW, int sizeH, MapMarker... markers) {
   return _map.getURI(lat, lon, sizeW, sizeH, markers);
+  //returns latitude, longitude, sizeW from input, sizeH from input, markers from input
 }
 
 public static String getMap(double lat, double lon, MapMarker... markers) {
   return getMap(lat, lon, SizeMax, SizeMax, markers);
+  //returns latitude, longitude, 512, 512, markers from input.
 }
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
