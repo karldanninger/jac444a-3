@@ -84,6 +84,8 @@ public static String getMap(double lat, double lon, MapMarker... markers) {
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // param handling and uri generation
+// What getURI does is get the URL of a google maps location by concatenating the size, marker,
+// maps, center, and zoom keys with append(). 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public String getURI(double lat, double lon, int sizeW, int sizeH, MapMarker... markers) {
   _validateParams(sizeW, sizeH, ZoomDefault);
@@ -147,6 +149,7 @@ public String getURI(double lat, double lon, int sizeW, int sizeH, int zoom) {
 }
 
 private void _validateParams(int sizeW, int sizeH, int zoom) {
+  //this method checks if sizeW, sizeH, and zoom are within their respective minimums and maximums.
   if (zoom < ZoomMin || zoom > ZoomMax)
     throw new IllegalArgumentException("zoom value is out of range [" + ZoomMin + "-" + ZoomMax + "]");
 
