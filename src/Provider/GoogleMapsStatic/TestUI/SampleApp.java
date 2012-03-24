@@ -201,7 +201,7 @@ private void _displayImgInFrame() {
 
   final JFrame frame = new JFrame("Google Static Map");
   GUIUtils.setAppIcon(frame, "71.png");
-  frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+  //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
@@ -225,7 +225,7 @@ private void _displayRespStrInFrame() {
 
   final JFrame frame = new JFrame("Google Static Map - Error");
   GUIUtils.setAppIcon(frame, "69.png");
-  frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+  //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JTextArea response = new JTextArea(_respStr, 25, 80);
   response.addMouseListener(new MouseListener() {
