@@ -15,8 +15,7 @@ If time permits:
 
 # Separate Log Files :
 
-[Karl's Log](./karl-log)
-[Ronito's Log](./ronito-log)
+[Karl's Log](./jac444a-3/karl-log) ~ [Ronito's Log](./jac444a-3/ronito-log)
 
 # Main CHANGELOG :
 
