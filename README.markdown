@@ -1,3 +1,5 @@
+# JAC444: Assignment 2 
+
 Proposal for ASSIGNMENT2 :
 Feature Set:
 
@@ -10,4 +12,11 @@ Feature Set:
 If time permits:
 
 3. Render multiple locations in one instance to flip between (from the locations saved from features 1 & 2)
-Team members: Rj Salamanca, Karl Danninger
+
+# Separate Log Files :
+
+[Karl's Log](./jac444a-3/blob/master/karl-log) ~ [Ronito's Log](./jac444a-3/blob/master/ronito-log)
+
+# Main CHANGELOG :
+
+March 18 ____________________
