@@ -208,7 +208,7 @@ private void _displayImgInFrame() {
                                              _img.getWidth(), _img.getHeight()));
   imgLbl.addMouseListener(new MouseListener() {
     public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) { frame.dispose();}
+    public void mousePressed(MouseEvent e) { /*frame.dispose();*/}
     public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
@@ -230,7 +230,7 @@ private void _displayRespStrInFrame() {
   JTextArea response = new JTextArea(_respStr, 25, 80);
   response.addMouseListener(new MouseListener() {
     public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) { frame.dispose();}
+    public void mousePressed(MouseEvent e) { /*frame.dispose();*/}
     public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
