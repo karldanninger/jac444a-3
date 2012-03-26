@@ -167,15 +167,22 @@ private void _validateParams(int sizeW, int sizeH, int zoom) {
 public static ByteBuffer getDataFromURI(String uri) throws IOException {
 
   GetMethod get = new GetMethod(uri);
-
+  //Creating an object called "get" which has an instance of GetMethod
+  //the Get method which is a simple method that simply takes a URL and gets the document the URL points to.
+  
   try {
     new HttpClient().executeMethod(get);
+    //HttpClient opens a new client window
+    //executeMethod(get) will run the URL given in the new window.
+   
     return new ByteBuffer(get.getResponseBodyAsStream());
+    //ByteBuffer is used to allocate get.getResponseBodyAsStream() into it.
+    //getResponseBodyAsStream() Returns the response body of get as an InputStream.
   }
   finally {
     get.releaseConnection();
+    //the connection is used to read the response and will be held until the response has been read.
   }
-
 }
 
 
