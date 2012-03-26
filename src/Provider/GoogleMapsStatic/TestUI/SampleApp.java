@@ -33,6 +33,8 @@ public class SampleApp extends JFrame {
 /** reference to task */
 private SimpleTask _task;
 /** this might be null. holds the image to display in a popup */
+// The BufferedImage is used in SampleApp file to get a specific image from google maps.
+// The the downloaded data is transferred into an image and is stored into the variable _img
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
 private String _respStr;
