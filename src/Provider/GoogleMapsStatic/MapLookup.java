@@ -19,6 +19,8 @@ public class MapLookup {
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // constants
+// The use of "static final" is so that the variables are immutable. 
+// The use of final makes the variables unchangeable, and remain CONSTANT!
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public static final String GmapStaticURI = "http://maps.google.com/staticmap";
 public static final String GmapLicenseKey = "AIzaSyDlNC5JMbR9io0gOeI1S7-VA95i8N9NVkA";
