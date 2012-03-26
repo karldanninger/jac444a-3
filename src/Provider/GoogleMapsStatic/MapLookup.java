@@ -85,7 +85,15 @@ public static String getMap(double lat, double lon, MapMarker... markers) {
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // param handling and uri generation
 // What getURI does is get the URL of a google maps location by concatenating the size, marker,
-// maps, center, and zoom keys with append(). 
+// maps, center, and zoom keys with append().
+//
+// 2. Explain how the StringBuffer object is used in the MapLookup class. 
+// String buffers are used by the compiler to implement the binary string concatenation for example:
+// x = new StringBuffer().append("a").append(4).append("c").toString()
+// x = a4c
+// The StringBuffer object isn't used in the MapLookup Class, but the closet thing to is 
+// is StringBuilder. The StringBuilder class is used to append or concatenate all different characters
+// together to form a URL.
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public String getURI(double lat, double lon, int sizeW, int sizeH, MapMarker... markers) {
   _validateParams(sizeW, sizeH, ZoomDefault);
