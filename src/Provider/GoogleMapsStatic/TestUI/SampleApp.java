@@ -33,6 +33,8 @@ public class SampleApp extends JFrame {
 /** reference to task */
 private SimpleTask _task;
 /** this might be null. holds the image to display in a popup */
+// The BufferedImage is used in SampleApp file to get a specific image from google maps.
+// The the downloaded data is transferred into an image and is stored into the variable _img
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
 private String _respStr;
@@ -201,7 +203,7 @@ private void _displayImgInFrame() {
 
   final JFrame frame = new JFrame("Google Static Map");
   GUIUtils.setAppIcon(frame, "71.png");
-  frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+  //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
@@ -225,7 +227,7 @@ private void _displayRespStrInFrame() {
 
   final JFrame frame = new JFrame("Google Static Map - Error");
   GUIUtils.setAppIcon(frame, "69.png");
-  frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+  //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JTextArea response = new JTextArea(_respStr, 25, 80);
   response.addMouseListener(new MouseListener() {

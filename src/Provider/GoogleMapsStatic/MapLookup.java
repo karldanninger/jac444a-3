@@ -19,6 +19,8 @@ public class MapLookup {
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // constants
+// The use of "static final" is so that the variables are immutable. 
+// The use of final makes the variables unchangeable, and remain CONSTANT!
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public static final String GmapStaticURI = "http://maps.google.com/staticmap";
 public static final String GmapLicenseKey = "AIzaSyDlNC5JMbR9io0gOeI1S7-VA95i8N9NVkA";
@@ -85,7 +87,15 @@ public static String getMap(double lat, double lon, MapMarker... markers) {
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // param handling and uri generation
 // What getURI does is get the URL of a google maps location by concatenating the size, marker,
-// maps, center, and zoom keys with append(). 
+// maps, center, and zoom keys with append().
+//
+// 2. Explain how the StringBuffer object is used in the MapLookup class. 
+// String buffers are used by the compiler to implement the binary string concatenation for example:
+// x = new StringBuffer().append("a").append(4).append("c").toString()
+// x = a4c
+// The StringBuffer object isn't used in the MapLookup Class, but the closet thing to is 
+// is StringBuilder. The StringBuilder class is used to append or concatenate all different characters
+// together to form a URL.
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public String getURI(double lat, double lon, int sizeW, int sizeH, MapMarker... markers) {
   _validateParams(sizeW, sizeH, ZoomDefault);
@@ -167,15 +177,22 @@ private void _validateParams(int sizeW, int sizeH, int zoom) {
 public static ByteBuffer getDataFromURI(String uri) throws IOException {
 
   GetMethod get = new GetMethod(uri);
-
+  //Creating an object called "get" which has an instance of GetMethod
+  //the Get method which is a simple method that simply takes a URL and gets the document the URL points to.
+  
   try {
     new HttpClient().executeMethod(get);
+    //HttpClient opens a new client window
+    //executeMethod(get) will run the URL given in the new window.
+   
     return new ByteBuffer(get.getResponseBodyAsStream());
+    //ByteBuffer is used to allocate get.getResponseBodyAsStream() into it.
+    //getResponseBodyAsStream() Returns the response body of get as an InputStream.
   }
   finally {
     get.releaseConnection();
+    //the connection is used to read the response and will be held until the response has been read.
   }
-
 }
 
 
