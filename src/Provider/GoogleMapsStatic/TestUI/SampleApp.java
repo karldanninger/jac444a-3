@@ -231,11 +231,10 @@ private void _displayImgInFrame() {
     	sentLbl = resetMsg;
     	clickX = e.getX();
     	clickY = e.getY();
-    	String getCoords = "X:" + clickX + " Y: " + clickY;
+    	double seeThis = Double.parseDouble(ttfLat.getText()) + 1;
+    	String getCoords = "X:" + seeThis + " Y: " + clickY;
     	sentLbl += getCoords;
-    	ttfLat.setText("999");
-    	//find a way to get coordinates of where the image is clicked
-    	//add it or minus from the coordinates of the longitude and latitude inputted
+    	//ttfLat.setText("999");
     	frame.dispose(); 
         startTaskAction();
     }
