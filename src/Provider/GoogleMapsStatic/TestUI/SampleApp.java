@@ -211,6 +211,8 @@ private void _displayImgInFrame() {
   imgLbl.addMouseListener(new MouseListener() {
     public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) { 
+    	//find a way to get coordinates of where the image is clicked
+    	//add it or minus from the coordinates of the longitude and latitude inputted
     	frame.dispose(); 
     	_displayImgInFrame();
     }
