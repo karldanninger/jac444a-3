@@ -210,7 +210,10 @@ private void _displayImgInFrame() {
                                              _img.getWidth(), _img.getHeight()));
   imgLbl.addMouseListener(new MouseListener() {
     public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) { /*frame.dispose();*/}
+    public void mousePressed(MouseEvent e) { 
+    	frame.dispose(); 
+    	_displayImgInFrame();
+    }
     public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
