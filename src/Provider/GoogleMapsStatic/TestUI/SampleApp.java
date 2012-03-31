@@ -38,6 +38,9 @@ private SimpleTask _task;
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
 private String _respStr;
+private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
+private String sentLbl = resetMsg;
+private int clickX, clickY;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
@@ -206,11 +209,30 @@ private void _displayImgInFrame() {
   //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
+  JLabel bottom = new JLabel(sentLbl);
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
                                              _img.getWidth(), _img.getHeight()));
+  Container f = frame.getContentPane();
+  JPanel jp2 = new JPanel();
+  
+  jp2.setBackground( Color.yellow );
+  jp2.add(bottom);
+  f.setLayout(new BorderLayout());
+  f.add(imgLbl);
+  f.add(jp2, BorderLayout.SOUTH);
+  frame.pack();
+
+  GUIUtils.centerOnScreen(frame);
+  frame.setVisible(true);
+  
   imgLbl.addMouseListener(new MouseListener() {
-    public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) { 
+    	sentLbl = resetMsg;
+    	clickX = e.getX();
+    	clickY = e.getY();
+    	String getCoords = "X:" + clickX + " Y: " + clickY;
+    	sentLbl += getCoords;
     	//find a way to get coordinates of where the image is clicked
     	//add it or minus from the coordinates of the longitude and latitude inputted
     	frame.dispose(); 
@@ -220,18 +242,6 @@ private void _displayImgInFrame() {
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
   });
-  
-  Container f = frame.getContentPane();
-  JPanel jp2 = new JPanel();
-  jp2.setBackground( Color.yellow );
-  jp2.add(new JLabel("Please Click on the image above for new Coordinates!"));
-  f.setLayout(new BorderLayout());
-  f.add(imgLbl);
-  f.add(jp2, BorderLayout.SOUTH);
-  frame.pack();
-
-  GUIUtils.centerOnScreen(frame);
-  frame.setVisible(true);
 }
 
 private void _displayRespStrInFrame() {
