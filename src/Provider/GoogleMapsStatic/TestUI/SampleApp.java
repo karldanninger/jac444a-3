@@ -215,8 +215,14 @@ private void _displayImgInFrame() {
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
   });
-
-  frame.setContentPane(imgLbl);
+  
+  Container f = frame.getContentPane();
+  JPanel jp2 = new JPanel();
+  jp2.setBackground( Color.yellow );
+  jp2.add(new JLabel("Please Click on the image above for new Coordinates!"));
+  f.setLayout(new BorderLayout());
+  f.add(imgLbl);
+  f.add(jp2, BorderLayout.SOUTH);
   frame.pack();
 
   GUIUtils.centerOnScreen(frame);
