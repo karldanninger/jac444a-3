@@ -233,10 +233,11 @@ private void _displayImgInFrame() {
     	clickY = e.getY();
     	String getCoords = "X:" + clickX + " Y: " + clickY;
     	sentLbl += getCoords;
+    	ttfLat.setText("999");
     	//find a way to get coordinates of where the image is clicked
     	//add it or minus from the coordinates of the longitude and latitude inputted
     	frame.dispose(); 
-    	_displayImgInFrame();
+        startTaskAction();
     }
     public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
