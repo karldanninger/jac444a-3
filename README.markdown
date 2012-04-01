@@ -20,4 +20,16 @@ If time permits:
 # Main CHANGELOG :
 
 March 18 ____________________
- - 
+ - Initial Commits
+ - Studied Code
+ - Tested multiple methods
+
+Split up main features ***
+
+RJ will build the main logic on how to plot new points on the map.  Splitting the
+map into 4 quadrants to help plotting new locations relative to the location used.
+
+Karl will take care of saving the plotted locations & to append them to a file.
+This file will then be used to populate a list of previous saved locations that
+the user can use to render previous clicks.
+
