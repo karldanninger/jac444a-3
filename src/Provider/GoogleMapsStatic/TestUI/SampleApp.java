@@ -25,6 +25,7 @@ import java.beans.*;
 import java.text.*;
 import java.util.concurrent.*;
 import java.io.*;
+import java.util.*;
 
 /** @author nazmul idris */
 public class SampleApp extends JFrame {
@@ -43,7 +44,7 @@ private String resetMsg = "Please click anywhere on the image to view those Coor
 private String sentLbl = resetMsg;
 private int clickX, clickY;
 private double sentX, sentY;
-private String[] saves;
+ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
