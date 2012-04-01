@@ -44,7 +44,7 @@ private String resetMsg = "Please click anywhere on the image to view those Coor
 private String sentLbl = resetMsg;
 private int clickX, clickY;
 private double sentX, sentY;
-ArrayList<String> loc = new ArrayList<String>();
+private ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -254,7 +254,6 @@ private void _displayImgInFrame() {
     	
     	//Update the Locations ComboBox with new additions
     	ttfSave.removeAllItems();
-    	JComboBox ttfSave = new JComboBox();
 		getSavedLocations();
 		for (int i=0; i<loc.size(); i++)
 			ttfSave.addItem(loc.get(i));

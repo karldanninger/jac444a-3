@@ -1,3 +1,42 @@
 # Karl Danninger's Log File
 
+March 14 ____________________
+
+- Initial Commits, & set up the collaborators for the assignment
+
+- Signed up for the Google Map API, and implemented the Key into
+the application.
+
 March 18 ____________________
+
+- Studied the packages, and played with different aspects of the 
+program to figure out what does what
+
+March 22 ____________________
+
+- Divided group work.
+
+My task is to Save Plotted Locations, & display them in a combobox
+
+March 30 ____________________
+
+Implemented most of the rudimentary logic to display past
+locations.  Combobox is displayed.
+
+BUG: Combobox will not update after click.  Program needs to be
+restarted to see the changes.  
+
+Potential Fixes:
+ >> Using defaultComboBoxModel might be able to update dynamically
+ 
+Implemented method to create/append lines of plotted locations to
+a file stored on local machine. Using BufferedReader/BufferedWriter
+
+March 31 ____________________  
+
+Cleaned up code & added comments to methods
+
+April 1  ____________________
+
+Finalizing Logic for saved locations to be used by user to generate
+a new location
