@@ -245,19 +245,33 @@ private void _displayImgInFrame() {
         startTaskAction();
     }
     
-    private void saveLocation(String xy) {
-    	try{
-    		  // Create file 
-    		  FileWriter f = new FileWriter("savedLocations.txt",true);
-    		  BufferedWriter out = new BufferedWriter(f);
-    		  out.write("testing saving a file");
-    		  out.close();
-    	}
+    public void saveLocation(String xy) {    	
+    	BufferedWriter f = null;
+
+    	try {
+    	    f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
+    	    f.write(xy);
+    	    f.newLine();
+    	    f.flush();
+    	} 
     	
-    	catch (Exception e) { //if exception, catch it
-    			  System.err.println("Error: " + e.getMessage());
+    	catch (IOException ioe) {
+    	    ioe.printStackTrace();
+    	} 
+    	
+    	finally { // always close the file
+    	    if (f != null) {
+    	        
+    	    	try {
+    	            f.close();
+    	        } 
+    	        
+    	        catch (IOException e) { //any error, catch exception
+    	        	System.err.println("Error: " + e.getMessage());
+    	        }
+    	    }
     	}
-		
+
 	}
     
 	public void mouseReleased(MouseEvent e) { }
