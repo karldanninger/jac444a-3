@@ -42,6 +42,7 @@ private String _respStr;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
 private int clickX, clickY;
+private double sentX, sentY;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
@@ -89,8 +90,8 @@ private void _setupTask() {
       // set the license key
       MapLookup.setLicenseKey(ttfLicense.getText());
       // get the uri for the static map
-      String uri = MapLookup.getMap(Double.parseDouble(ttfLat.getText()),
-                                    Double.parseDouble(ttfLon.getText()),
+      String uri = MapLookup.getMap(Double.parseDouble(ttfLongi.getText()),
+                                    Double.parseDouble(ttfLati.getText()),
                                     Integer.parseInt(ttfSizeW.getText()),
                                     Integer.parseInt(ttfSizeH.getText()),
                                     Integer.parseInt(ttfZoom.getText())
@@ -232,15 +233,24 @@ private void _displayImgInFrame() {
     	
     	System.out.println("Mouse Listener:  Mouse Clicked!");
     	sentLbl = resetMsg;
+    	sentX = 0.00;
     	clickX = e.getX();
     	clickY = e.getY();
-    	double seeThis = Double.parseDouble(ttfLat.getText()) + 1;
+
+    	if(clickX > (_img.getWidth()/2)){
+    		sentX = -1*(clickX * 0.00001);
+        	System.out.println("right");
+    	} else if (clickX < (_img.getWidth()/2)){
+    		sentX = clickX * 0.00001;
+        	System.out.println("left");
+    	}
+    	double seeThis = Double.parseDouble(ttfLati.getText()) + sentX;
     	String getCoords = "X:" + seeThis + " Y: " + clickY;
     	sentLbl += getCoords;
     	System.out.println("... saving Coordinates");
     	saveLocation(getCoords);
     	System.out.println("saved Coordinates");
-    	//ttfLat.setText("999");
+    	ttfLati.setText(Double.toString(seeThis));
     	frame.dispose(); 
         startTaskAction();
     }
@@ -352,12 +362,12 @@ private void initComponents() {
   label2 = new JLabel();
   ttfSizeW = new JTextField();
   label4 = new JLabel();
-  ttfLat = new JTextField();
+  ttfLongi = new JTextField();
   btnGetMap = new JButton();
   label3 = new JLabel();
   ttfSizeH = new JTextField();
   label5 = new JLabel();
-  ttfLon = new JTextField();
+  ttfLati = new JTextField();
   btnQuit = new JButton();
   label1 = new JLabel();
   ttfLicense = new JTextField();
@@ -421,9 +431,9 @@ private void initComponents() {
   			label4.setHorizontalAlignment(SwingConstants.RIGHT);
   			panel1.add(label4, new TableLayoutConstraints(2, 0, 2, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-  			//---- ttfLat ----
-  			ttfLat.setText("38.931099");
-  			panel1.add(ttfLat, new TableLayoutConstraints(3, 0, 3, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			//---- ttfLongi ----
+  			ttfLongi.setText("38.931099");
+  			panel1.add(ttfLongi, new TableLayoutConstraints(3, 0, 3, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- btnGetMap ----
   			btnGetMap.setText("Get Map");
@@ -450,9 +460,9 @@ private void initComponents() {
   			label5.setHorizontalAlignment(SwingConstants.RIGHT);
   			panel1.add(label5, new TableLayoutConstraints(2, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-  			//---- ttfLon ----
-  			ttfLon.setText("-77.3489");
-  			panel1.add(ttfLon, new TableLayoutConstraints(3, 1, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			//---- ttfLati ----
+  			ttfLati.setText("-77.3489");
+  			panel1.add(ttfLati, new TableLayoutConstraints(3, 1, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- btnQuit ----
   			btnQuit.setText("Quit");
@@ -566,12 +576,12 @@ private JPanel panel1;
 private JLabel label2;
 private JTextField ttfSizeW;
 private JLabel label4;
-private JTextField ttfLat;
+private JTextField ttfLongi;
 private JButton btnGetMap;
 private JLabel label3;
 private JTextField ttfSizeH;
 private JLabel label5;
-private JTextField ttfLon;
+private JTextField ttfLati;
 private JButton btnQuit;
 private JLabel label1;
 private JTextField ttfLicense;
