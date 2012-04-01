@@ -24,6 +24,7 @@ import java.awt.image.*;
 import java.beans.*;
 import java.text.*;
 import java.util.concurrent.*;
+import java.io.*;
 
 /** @author nazmul idris */
 public class SampleApp extends JFrame {
@@ -227,18 +228,39 @@ private void _displayImgInFrame() {
   
   imgLbl.addMouseListener(new MouseListener() {
 	public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) { 
+    public void mousePressed(MouseEvent e) {
+    	
+    	System.out.println("Mouse Listener:  Mouse Clicked!");
     	sentLbl = resetMsg;
     	clickX = e.getX();
     	clickY = e.getY();
     	double seeThis = Double.parseDouble(ttfLat.getText()) + 1;
     	String getCoords = "X:" + seeThis + " Y: " + clickY;
     	sentLbl += getCoords;
+    	System.out.println("... saving Coordinates");
+    	saveLocation(getCoords);
+    	System.out.println("saved Coordinates");
     	//ttfLat.setText("999");
     	frame.dispose(); 
         startTaskAction();
     }
-    public void mouseReleased(MouseEvent e) { }
+    
+    private void saveLocation(String xy) {
+    	try{
+    		  // Create file 
+    		  FileWriter f = new FileWriter("savedLocations.txt",true);
+    		  BufferedWriter out = new BufferedWriter(f);
+    		  out.write("testing saving a file");
+    		  out.close();
+    	}
+    	
+    	catch (Exception e) { //if exception, catch it
+    			  System.err.println("Error: " + e.getMessage());
+    	}
+		
+	}
+    
+	public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
   });
