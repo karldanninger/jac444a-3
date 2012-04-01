@@ -250,8 +250,14 @@ private void _displayImgInFrame() {
     	sentLbl += getCoords;
     	System.out.println("... saving Coordinates");
     	saveLocation(getCoords);
-    	System.out.println("saved Coordinates");
     	ttfLati.setText(Double.toString(seeThis));
+    	
+    	//Update the Locations ComboBox with new additions
+    	ttfSave.removeAllItems();
+    	JComboBox ttfSave = new JComboBox();
+		getSavedLocations();
+		for (int i=0; i<loc.size(); i++)
+			ttfSave.addItem(loc.get(i));
     	frame.dispose(); 
         startTaskAction();
     }
@@ -289,6 +295,44 @@ private void _displayImgInFrame() {
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
   });
+}
+
+public String[] getSavedLocations() {
+	System.out.println("inside getSavedLocations");				//CONSOLE * * * * * * * * * * * * *
+
+	BufferedWriter f = null;
+
+	BufferedReader br = null;
+	try {
+	// attempt to open the locations file if it doesnt exist, create it
+	f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
+	br = new BufferedReader( new FileReader( "savedLocations.txt") );
+
+	String word;
+	loc.add("Saved Locations");
+	// loop and read a line from the file as long as we don't get null
+	while( ( word = br.readLine() ) != null )
+	// add the read word to the wordList
+	loc.add( word );
+	} catch( IOException e ) {
+	e.printStackTrace();
+	} finally {
+	try {
+	// attempt the close the file
+
+	br.close();
+	} catch( IOException ex ) {
+	ex.printStackTrace();
+	}
+	}
+	
+	String[] saves = new String[ loc.size() ];	
+	for (int i=0; i<loc.size(); i++) {
+		System.out.println("moving loc to Saves");
+		saves[i] = loc.get(i);
+		System.out.println(saves.length);
+	}
+	return saves;
 }
 
 private void _displayRespStrInFrame() {
@@ -374,6 +418,8 @@ private void initComponents() {
   ttfLicense = new JTextField();
   label6 = new JLabel();
   ttfZoom = new JTextField();
+  //ComboBox for Saved Locations
+  ttfSave = new JComboBox();
   scrollPane1 = new JScrollPane();
   ttaStatus = new JTextArea();
   panel2 = new JPanel();
@@ -588,6 +634,7 @@ private JLabel label1;
 private JTextField ttfLicense;
 private JLabel label6;
 private JTextField ttfZoom;
+private JComboBox ttfSave;
 private JScrollPane scrollPane1;
 private JTextArea ttaStatus;
 private JPanel panel2;
