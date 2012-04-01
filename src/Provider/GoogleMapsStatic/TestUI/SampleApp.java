@@ -540,6 +540,25 @@ private void initComponents() {
   			//---- ttfZoom ----
   			ttfZoom.setText("14");
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		
+  			//---- ttfSave ----
+  		   	ttfSave.removeAllItems();
+  		    JComboBox ttfSave = new JComboBox();
+  		   	getSavedLocations();
+  			for (int i=0; i<loc.size(); i++) 
+  				ttfSave.addItem(loc.get(i));
+  			
+  			ttfSave.setSelectedIndex(0);
+  			panel1.add(ttfSave, new TableLayoutConstraints(5, 2, 5, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			//Action Listener to update the coordinates on selected Location
+  			ttfSave.addActionListener(new ActionListener() {
+  				public void actionPerformed(ActionEvent e) {
+  					
+  					
+  				}
+  			});
+  		
+  		
   		}
   		contentPanel.add(panel1, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
