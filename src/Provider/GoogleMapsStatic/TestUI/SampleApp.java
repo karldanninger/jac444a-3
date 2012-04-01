@@ -231,32 +231,40 @@ private void _displayImgInFrame() {
   imgLbl.addMouseListener(new MouseListener() {
 	public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
-    	
-    	System.out.println("Mouse Listener:  Mouse Clicked!");
-    	sentLbl = resetMsg;
+       	sentLbl = resetMsg;
     	sentX = 0.00;
-    	clickX = e.getX();
-    	clickY = e.getY();
+    	clickX = e.getX();//Latitude
+    	clickY = e.getY();//Longitude
+        if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((_img.getWidth()/2)-clickX) * 1);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 1);
+        	System.out.println("Top left");
+        }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * -1);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((-1*(_img.getHeight()/2))+clickY) * -1);
+        	System.out.println("Bottom Right");
+        }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((_img.getWidth()/2)-clickX) * 1);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((-1*(_img.getHeight()/2))+clickY) * -1);
+        	System.out.println("Bottom Left");
+        }else{
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * -1);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 1);
+        	System.out.println("Top Right");
+        }
 
-    	if(clickX > (_img.getWidth()/2)){
-    		sentX = -1*(clickX * 0.00001);
-        	System.out.println("right");
-    	} else if (clickX < (_img.getWidth()/2)){
-    		sentX = clickX * 0.00001;
-        	System.out.println("left");
-    	}
-    	double seeThis = Double.parseDouble(ttfLati.getText()) + sentX;
-    	String getCoords = "X:" + seeThis + " Y: " + clickY;
+    	String getCoords = "sentX:" + sentX + " sentY: " + sentY;
     	sentLbl += getCoords;
-    	System.out.println("... saving Coordinates");
-    	saveLocation(getCoords);
-    	ttfLati.setText(Double.toString(seeThis));
-    	
+    	//System.out.println("... saving Coordinates");
+    	//saveLocation(getCoords);
+    	ttfLati.setText(Double.toString(sentX));
+    	ttfLongi.setText(Double.toString(sentY));
+    	/*
     	//Update the Locations ComboBox with new additions
     	ttfSave.removeAllItems();
 		getSavedLocations();
 		for (int i=0; i<loc.size(); i++)
-			ttfSave.addItem(loc.get(i));
+			ttfSave.addItem(loc.get(i));*/
     	frame.dispose(); 
         startTaskAction();
     }
