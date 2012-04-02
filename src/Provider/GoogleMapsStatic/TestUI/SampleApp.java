@@ -44,7 +44,7 @@ private String resetMsg = "Please click anywhere on the image to view those Coor
 private String sentLbl = resetMsg;
 private int clickX, clickY;
 private double sentX, sentY;
-private ArrayList<String> loc = new ArrayList<String>();
+public ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -253,10 +253,12 @@ private void _displayImgInFrame() {
     	ttfLati.setText(Double.toString(seeThis));
     	
     	//Update the Locations ComboBox with new additions
-    	ttfSave.removeAllItems();
-		getSavedLocations();
+    	ttfSave.removeAllItems(); //re-populate the ComboBox
+		getSavedLocations(); //run through file to get all locations
 		for (int i=0; i<loc.size(); i++)
 			ttfSave.addItem(loc.get(i));
+		System.out.println("update combobox");
+		
     	frame.dispose(); 
         startTaskAction();
     }
@@ -275,7 +277,7 @@ private void _displayImgInFrame() {
     	    ioe.printStackTrace();
     	} 
     	
-    	finally { // always close the file
+    	finally { // close the file
     	    if (f != null) {
     	        
     	    	try {
@@ -296,14 +298,13 @@ private void _displayImgInFrame() {
   });
 }
 
-public String[] getSavedLocations() {
+public void getSavedLocations() {
 	System.out.println("inside getSavedLocations");				//CONSOLE * * * * * * * * * * * * *
-
+	loc.clear();
 	BufferedWriter f = null;
-
 	BufferedReader br = null;
 	try {
-	// attempt to open the locations file if it doesnt exist, create it
+	// attempt to open the locations file if it doesn't exist, create it
 	f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
 	br = new BufferedReader( new FileReader( "savedLocations.txt") );
 
@@ -324,14 +325,13 @@ public String[] getSavedLocations() {
 	ex.printStackTrace();
 	}
 	}
-	
+	/*
 	String[] saves = new String[ loc.size() ];	
 	for (int i=0; i<loc.size(); i++) {
-		System.out.println("moving loc to Saves");
 		saves[i] = loc.get(i);
-		System.out.println(saves.length);
 	}
 	return saves;
+	*/
 }
 
 private void _displayRespStrInFrame() {
@@ -343,7 +343,7 @@ private void _displayRespStrInFrame() {
   JTextArea response = new JTextArea(_respStr, 25, 80);
   response.addMouseListener(new MouseListener() {
     public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) { /*frame.dispose();*/}
+    public void mousePressed(MouseEvent e) { /*frame.dispose();*/ }
     public void mouseReleased(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
@@ -541,9 +541,9 @@ private void initComponents() {
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		
   			//---- ttfSave ----
-  		   	ttfSave.removeAllItems();
-  		    JComboBox ttfSave = new JComboBox();
-  		   	getSavedLocations();
+  		   	//ttfSave.removeAllItems();
+  		    //JComboBox ttfSave = new JComboBox();
+  			getSavedLocations();
   			for (int i=0; i<loc.size(); i++) 
   				ttfSave.addItem(loc.get(i));
   			
@@ -552,8 +552,7 @@ private void initComponents() {
   			//Action Listener to update the coordinates on selected Location
   			ttfSave.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
-  					
-  					
+
   				}
   			});
   		
