@@ -214,6 +214,7 @@ private void _displayImgInFrame() {
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
   JLabel bottom = new JLabel(sentLbl);
+  bottom.setSize(_img.getWidth(), _img.getHeight());
   JLabel under = new JLabel(getCoords);
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
                                              _img.getWidth(), _img.getHeight()));
