@@ -552,7 +552,8 @@ private void initComponents() {
   			//Action Listener to update the coordinates on selected Location
   			ttfSave.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
-
+  					Object contents = ttfSave.getSelectedItem();
+  			        System.out.println(contents);
   				}
   			});
   		
