@@ -26,6 +26,7 @@ import java.text.*;
 import java.util.concurrent.*;
 import java.io.*;
 import java.util.*;
+import java.math.BigDecimal;
 
 /** @author nazmul idris */
 public class SampleApp extends JFrame {
@@ -39,7 +40,7 @@ private SimpleTask _task;
 // The the downloaded data is transferred into an image and is stored into the variable _img
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
-private String _respStr;
+private String _respStr, getCoords;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
 private int clickX, clickY;
@@ -213,16 +214,19 @@ private void _displayImgInFrame() {
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
   JLabel bottom = new JLabel(sentLbl);
+  JLabel under = new JLabel(getCoords);
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
                                              _img.getWidth(), _img.getHeight()));
   Container f = frame.getContentPane();
   JPanel jp2 = new JPanel();
-  
+  jp2.setLayout(new GridLayout(2,1));
   jp2.setBackground( Color.yellow );
   jp2.add(bottom);
+  jp2.add(under);
   f.setLayout(new BorderLayout());
   f.add(imgLbl);
   f.add(jp2, BorderLayout.SOUTH);
+  
   frame.pack();
 
   GUIUtils.centerOnScreen(frame);
@@ -236,25 +240,29 @@ private void _displayImgInFrame() {
     	clickX = e.getX();//Latitude
     	clickY = e.getY();//Longitude
         if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((_img.getWidth()/2)-clickX) * 1);
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 1);
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
         	System.out.println("Top left");
         }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * -1);
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((-1*(_img.getHeight()/2))+clickY) * -1);
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
         	System.out.println("Bottom Right");
         }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((_img.getWidth()/2)-clickX) * 1);
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((-1*(_img.getHeight()/2))+clickY) * -1);
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
         	System.out.println("Bottom Left");
         }else{
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * -1);
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 1);
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
         	System.out.println("Top Right");
         }
 
-    	String getCoords = "sentX:" + sentX + " sentY: " + sentY;
-    	sentLbl += getCoords;
+        BigDecimal toCoordsX = new BigDecimal(sentX);
+        BigDecimal toCoordsY = new BigDecimal(sentY);
+        
+        sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+        sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+    	getCoords = "sentX:" + sentX + " sentY: " + sentY;
     	//System.out.println("... saving Coordinates");
     	//saveLocation(getCoords);
     	ttfLati.setText(Double.toString(sentX));
@@ -311,7 +319,7 @@ public String[] getSavedLocations() {
 
 	BufferedReader br = null;
 	try {
-	// attempt to open the locations file if it doesnt exist, create it
+	// attempt to open the locations file if it doesn't exist, create it
 	f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
 	br = new BufferedReader( new FileReader( "savedLocations.txt") );
 
