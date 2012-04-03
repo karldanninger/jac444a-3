@@ -1,6 +1,4 @@
-/*
- * test Created by JFormDesigner on Mon Apr 21 12:50:34 EDT 2008
- */
+/*Created by JFormDesigner on Mon Apr 21 12:50:34 EDT 2008*/
 
 package Provider.GoogleMapsStatic.TestUI;
 
@@ -45,9 +43,10 @@ private String[] setCoords;
 private String stringCoords;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
-private int clickX, clickY;
+private int clickX, clickY, counter1, countThis;
 private int mapIsUp = 0;
-private double sentX, sentY;
+private int counter = 1;
+private double sentX, sentY, pixelX, pixelY;
 public ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
@@ -176,10 +175,7 @@ private void _setupTask() {
             sout("saved under a combo box in");
             sout("this window under get quit.");
             sout("********************************");
-
-
-
-
+            
             _displayImgInFrame();
           }
           else _displayRespStrInFrame();
@@ -252,8 +248,8 @@ private void _displayImgInFrame() {
     	clickX = e.getX();//Latitude
     	clickY = e.getY();//Longitude
         if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
         	System.out.println("Top left");
         }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
         	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
@@ -523,6 +519,35 @@ private void initComponents() {
   			btnGetMap.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
   					startTaskAction();
+  		  			if(Integer.parseInt(ttfZoom.getText()) < 14){
+  		              for(int i = 0; i < 14; i++){
+  		                if(Integer.parseInt(ttfZoom.getText()) == i){
+  		                  countThis = 14-i;
+  		                  do{
+  		            	    counter = counter*2;
+  		            	    pixelX = 0.000084525*counter;
+  		            	    pixelY = 0.00006725*counter;
+  		            	    System.out.println("0-13");
+  		            	    System.out.println(counter);
+  		            	    counter1++;
+  		            	    System.out.println(countThis);
+  		                  }while(counter1 != countThis);
+  		            	}
+  		              }
+  		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){
+		              for(int i = 19; i > 14; i--){
+		                if(Integer.parseInt(ttfZoom.getText()) == i){
+		            	  counter = counter*2;
+		            	  pixelX = 0.000084525/counter;
+		            	  pixelY = 0.00006725/counter;
+  		            	  System.out.println("15-19");
+		            	}
+		              }
+		            } else {
+		              pixelX = 0.000084525;
+		              pixelY = 0.00006725;
+		              System.out.println("14");
+		            }
   				}
   			});
   			panel1.add(btnGetMap, new TableLayoutConstraints(5, 0, 5, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
@@ -570,11 +595,11 @@ private void initComponents() {
   			label6.setText("Zoom");
   			label6.setHorizontalAlignment(SwingConstants.RIGHT);
   			panel1.add(label6, new TableLayoutConstraints(2, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
+  			
   			//---- ttfZoom ----
   			ttfZoom.setText("14");
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-  		
+
   		//---- ttfSave ----
   		   	ttfSave.removeAllItems();
   		    //JComboBox ttfSave = new JComboBox();
