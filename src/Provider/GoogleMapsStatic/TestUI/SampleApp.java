@@ -248,20 +248,20 @@ private void _displayImgInFrame() {
     	clickX = e.getX();//Latitude
     	clickY = e.getY();//Longitude
         if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);//Add to latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);//Add to Longitude
         	System.out.println("Top left");
         }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Bottom Right");
         }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Bottom Left");
         }else{
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Top Right");
         }
 
