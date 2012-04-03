@@ -533,6 +533,8 @@ private void initComponents() {
   		            	    System.out.println(countThis);
   		                  }while(counter1 != countThis);
   		            	}
+		                counter1 = 0;
+		                counter = 1;
   		              }
   		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){
 		              for(int i = 19; i > 14; i--){
