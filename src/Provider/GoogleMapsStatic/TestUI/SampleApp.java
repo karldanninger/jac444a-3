@@ -26,6 +26,7 @@ import java.text.*;
 import java.util.concurrent.*;
 import java.io.*;
 import java.util.*;
+import java.math.BigDecimal;
 
 /** @author nazmul idris */
 public class SampleApp extends JFrame {
@@ -39,7 +40,7 @@ private SimpleTask _task;
 // The the downloaded data is transferred into an image and is stored into the variable _img
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
-private String _respStr;
+private String _respStr, getCoords;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
 private int clickX, clickY;
@@ -213,44 +214,65 @@ private void _displayImgInFrame() {
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
   JLabel bottom = new JLabel(sentLbl);
+  JLabel under = new JLabel(getCoords);
+  bottom.setSize(_img.getWidth(), _img.getHeight());
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
                                              _img.getWidth(), _img.getHeight()));
+  
   Container f = frame.getContentPane();
   JPanel jp2 = new JPanel();
-  
+  jp2.setLayout(new GridLayout(2,1));
   jp2.setBackground( Color.yellow );
   jp2.add(bottom);
+  jp2.add(under);
   f.setLayout(new BorderLayout());
   f.add(imgLbl);
   f.add(jp2, BorderLayout.SOUTH);
-  frame.pack();
 
   GUIUtils.centerOnScreen(frame);
   frame.setVisible(true);
+  frame.pack();
+  frame.setResizable(false);
   
   imgLbl.addMouseListener(new MouseListener() {
 	public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
     	
     	System.out.println("Mouse Listener:  Mouse Clicked!");
-    	sentLbl = resetMsg;
+       	sentLbl = resetMsg;
     	sentX = 0.00;
-    	clickX = e.getX();
-    	clickY = e.getY();
+    	clickX = e.getX();//Latitude
+    	clickY = e.getY();//Longitude
+        if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	System.out.println("Top left");
+        }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	System.out.println("Bottom Right");
+        }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	System.out.println("Bottom Left");
+        }else{
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	System.out.println("Top Right");
+        }
 
-    	if(clickX > (_img.getWidth()/2)){
-    		sentX = -1*(clickX * 0.00001);
-        	System.out.println("right");
-    	} else if (clickX < (_img.getWidth()/2)){
-    		sentX = clickX * 0.00001;
-        	System.out.println("left");
-    	}
-    	double seeThis = Double.parseDouble(ttfLati.getText()) + sentX;
-    	String getCoords = "X:" + seeThis + " Y: " + clickY;
-    	sentLbl += getCoords;
-    	System.out.println("... saving Coordinates");
+        BigDecimal toCoordsX = new BigDecimal(sentX);
+        BigDecimal toCoordsY = new BigDecimal(sentY);
+        
+        sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+        sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+    	getCoords = "sentX:" + sentX + " sentY: " + sentY;
+
+    	ttfLati.setText(Double.toString(sentX));
+    	ttfLongi.setText(Double.toString(sentY));
+    	
+    	System.out.println("... saving Coordinates");    	
     	saveLocation(getCoords);
-    	ttfLati.setText(Double.toString(seeThis));
     	
     	//Update the Locations ComboBox with new additions
     	ttfSave.removeAllItems(); //re-populate the ComboBox
