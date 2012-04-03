@@ -41,6 +41,7 @@ private SimpleTask _task;
 private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
 private String _respStr, getCoords;
+private String[] setCoords;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
 private int clickX, clickY;
@@ -278,6 +279,9 @@ sout("try");
     	System.out.println("... saving Coordinates");    	
     	saveLocation(getCoords);
     	
+    	//System.out.println("... saving Coordinates");    	
+    	saveLocation(getCoords); //pass getCoords through saveLocation. this string is appended to the savedLocations file.
+    	
     	//Update the Locations ComboBox with new additions
     	ttfSave.removeAllItems(); //re-populate the ComboBox
 		getSavedLocations(); //run through file to get all locations
@@ -290,11 +294,11 @@ sout("try");
     }
     
     public void saveLocation(String xy) {    	
-    	BufferedWriter f = null;
+    	BufferedWriter f = null; //created a bufferedWriter object
 
     	try {
-    	    f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
-    	    f.write(xy);
+    	    f = new BufferedWriter(new FileWriter("savedLocations.txt", true)); //evaluated true if file has not been created yet
+    	    f.write(xy); //append passed coordinates and append to file if exists
     	    f.newLine();
     	    f.flush();
     	} 
@@ -325,30 +329,30 @@ sout("try");
 }
 
 public void getSavedLocations() {
-	System.out.println("inside getSavedLocations");				//CONSOLE * * * * * * * * * * * * *
-	loc.clear();
-	BufferedWriter f = null;
+	//System.out.println("inside getSavedLocations");				//CONSOLE * * * * * * * * * * * * *
+	loc.clear(); //clear locations.  helps refresh the list when reprinting all the locations
+	BufferedWriter f = null; //just in case file has not been created yet
 	BufferedReader br = null;
 	try {
 	// attempt to open the locations file if it doesn't exist, create it
-	f = new BufferedWriter(new FileWriter("savedLocations.txt", true));
+	f = new BufferedWriter(new FileWriter("savedLocations.txt", true)); //evaluated true if file does not exist
 	br = new BufferedReader( new FileReader( "savedLocations.txt") );
 
-	String word;
+	String line; //each line is one index of the list 
 	loc.add("Saved Locations");
 	// loop and read a line from the file as long as we don't get null
-	while( ( word = br.readLine() ) != null )
+	while( ( line = br.readLine() ) != null )
 	// add the read word to the wordList
-	loc.add( word );
+	loc.add( line );
 	} catch( IOException e ) {
 	e.printStackTrace();
 	} finally {
 	try {
 	// attempt the close the file
 
-	br.close();
+	br.close(); //close bufferedwriter
 	} catch( IOException ex ) {
-	ex.printStackTrace();
+		ex.printStackTrace();
 	}
 	}
 	/*
@@ -566,11 +570,11 @@ private void initComponents() {
   			ttfZoom.setText("14");
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		
-  			//---- ttfSave ----
+  		//---- ttfSave ----
   		   	//ttfSave.removeAllItems();
   		    //JComboBox ttfSave = new JComboBox();
-  			getSavedLocations();
-  			for (int i=0; i<loc.size(); i++) 
+  			getSavedLocations(); //grabs a new list
+  			for (int i=0; i<loc.size(); i++) //populates this list using a arrayList
   				ttfSave.addItem(loc.get(i));
   			
   			ttfSave.setSelectedIndex(0);
@@ -578,8 +582,12 @@ private void initComponents() {
   			//Action Listener to update the coordinates on selected Location
   			ttfSave.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
-  					Object contents = ttfSave.getSelectedItem();
-  			        System.out.println(contents);
+  				  Object contents = ttfSave.getSelectedItem(); //grabs users selection
+  			      //System.out.println(contents);
+  			      String stringCoords = contents.toString(); 
+  			      setCoords = stringCoords.split("\\s+");
+  			      ttfLongi.setText(setCoords[1]); //sets the texts in the longitude and latitude fields to coordinates selected
+  			      ttfLati.setText(setCoords[0]);
   				}
   			});
   		
