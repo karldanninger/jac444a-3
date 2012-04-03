@@ -1,3 +1,40 @@
 # Rj Salamanca's Log File
 
 March 18 ____________________
+-Got gitHub and fooled around with the application on my local machine
+
+March 20 ____________________
+-Was added as a collaborator with Karl's gitHub
+-This allows us to work within one repo
+
+March 24 ____________________
+-Studied the coding within the files to see how everything worked
+-Commented out some stuff to see the differences
+-Commented how to use certain functions
+
+March 25 ____________________
+-Continued commenting how to use certain functions
+
+March 31 ____________________
+-Played around with the GUI, adding certain JLabels to make things more visible and understandable
+-Started the coding parts of the images within the GUI.
+
+April 1  ____________________
+-Played around with the map to find the coordinates
+-Removed the additional GUI as it became a problem.
+-Added instructions within the JTextArea of the main interface
+
+April 2  ____________________
+-Did coding for 4 quadrants needed for the map. Process took long
+-Fixed the GUI to make it non re-sizable making the program buggy.
+-Working on zoom
+
+April 3  ____________________
+-Created an anon. interface class for the zoom feature
+-Added reset values
+-Allowed big decimal for larger numbers of the map.
+
+>>>BUG: Zoom would work in decreasing intervals and increasing intervals SEPARATELY
+>>>     but would not work together. EX: 14,13,12,11 would work fine but 13,12,11,13 would not
+
+>>>Fixed: Resetters helped fix this 
