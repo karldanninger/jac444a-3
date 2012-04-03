@@ -23,6 +23,35 @@ March 18 ____________________
  - Initial Commits
  - Studied Code
  - Tested multiple methods
+ 
+March 20 ____________________
+-Was added as a collaborator with Karl's gitHub
+-This allows us to work within one repo
+
+March 24 ____________________
+-Commenting was added to the file
+
+March 25 ____________________
+-More commenting was added to the file
+
+March 30 ____________________
+-Combo box was added and coding was done for it
+
+March 31 ____________________
+-GUI was updated and started coding within the mouseListener
+
+April 1  ____________________
+-Finalized logic for combo box
+-Added instructions in the JTextArea
+-Got coordinates of the mouse and integrated it with the coordinates given
+
+April 2  ____________________
+-Did coding for 4 quadrants of the map
+-Worked on zoom anon. inner class 
+
+April 3  ____________________
+-Finalized the coding for each quadrant
+-Finalized zoom anon. inner class with resetters 
 
 Split up main features ***
 
