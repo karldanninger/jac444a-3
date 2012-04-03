@@ -46,7 +46,7 @@ private String sentLbl = resetMsg;
 private int clickX, clickY, counter1, countThis;
 private int mapIsUp = 0;
 private int counter = 1;
-private double sentX, sentY, pixelX, pixelY, sendPixelX, sendPixelY;
+private double sentX, sentY, pixelX, pixelY;
 public ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
@@ -271,13 +271,11 @@ private void _displayImgInFrame() {
         sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
         sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
     	getCoords = sentX + " " + sentY;
-    	//sout("try");
     	ttfLati.setText(Double.toString(sentX));
     	ttfLongi.setText(Double.toString(sentY));
     	
     	System.out.println("... saving Coordinates");    	
     	
-    	//System.out.println("... saving Coordinates");    	
     	saveLocation(getCoords); //pass getCoords through saveLocation. this string is appended to the savedLocations file.
     	System.out.println("... savedCoordinates");    	
 
@@ -356,13 +354,6 @@ public void getSavedLocations() {
 		ex.printStackTrace();
 	}
 	}
-	/*
-	String[] saves = new String[ loc.size() ];	
-	for (int i=0; i<loc.size(); i++) {
-		saves[i] = loc.get(i);
-	}
-	return saves;
-	*/
 }
 
 private void _displayRespStrInFrame() {
@@ -525,7 +516,7 @@ private void initComponents() {
   		                  countThis = 14-i;
   		                  do{
   		            	    counter = counter*2;
-  		            	    pixelX = 0.000084525*counter;//Values per Latitude
+  		            	    pixelX = 0.000084525*counter;//Values per Latitude, trial and error method used to find these numbers.
   		            	    pixelY = 0.00006725*counter;//Values per Longitude
   		            	    counter1++;
   		                  }while(counter1 != countThis);
@@ -540,14 +531,8 @@ private void initComponents() {
 	  		              do{
 	  		                counter = counter*2;
 		            	    pixelX = 0.000084525/counter;//Values per Latitude
-		            	    pixelY = 0.00006725/counter;//Values per Longitude
-		            	    System.out.print("counter:");
-		            	    System.out.println(counter);
-		            	    System.out.print("counterThis:");
-		            	    System.out.println(countThis);		            	    
+		            	    pixelY = 0.00006725/counter;//Values per Longitude	            	    
   		            	    counter1++;
-		            	    System.out.print("counter1:");
-		            	    System.out.println(counter1);
 	  		              }while(counter1 != countThis);
 	  		            }
 		                counter = 1;//Resetters
@@ -561,8 +546,8 @@ private void initComponents() {
   		          BigDecimal sendPixelX = new BigDecimal(pixelX);
   		          BigDecimal sendPixelY = new BigDecimal(pixelY);
   		          
-  		          pixelX = (sendPixelX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
-  		          pixelY = (sendPixelY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+  		          pixelX = (sendPixelX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();//allows for bigger decimal zoom variables
+  		          pixelY = (sendPixelY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();//Won't reach zoom 1-5 without these!
   				}
   			});
   			panel1.add(btnGetMap, new TableLayoutConstraints(5, 0, 5, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
