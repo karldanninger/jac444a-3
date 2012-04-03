@@ -42,9 +42,11 @@ private BufferedImage _img;
 /** this might be null. holds the text in case image doesn't display */
 private String _respStr, getCoords;
 private String[] setCoords;
+private String stringCoords;
 private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
 private String sentLbl = resetMsg;
 private int clickX, clickY;
+private int mapIsUp = 0;
 private double sentX, sentY;
 public ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -244,6 +246,7 @@ private void _displayImgInFrame() {
     public void mousePressed(MouseEvent e) {
     	
     	System.out.println("Mouse Listener:  Mouse Clicked!");
+    	mapIsUp = 1;
        	sentLbl = resetMsg;
     	sentX = 0.00;
     	clickX = e.getX();//Latitude
@@ -271,24 +274,26 @@ private void _displayImgInFrame() {
         
         sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
         sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
-    	getCoords = "sentX:" + sentX + " sentY: " + sentY;
-sout("try");
+    	getCoords = sentX + " " + sentY;
+    	//sout("try");
     	ttfLati.setText(Double.toString(sentX));
     	ttfLongi.setText(Double.toString(sentY));
     	
     	System.out.println("... saving Coordinates");    	
-    	saveLocation(getCoords);
     	
     	//System.out.println("... saving Coordinates");    	
     	saveLocation(getCoords); //pass getCoords through saveLocation. this string is appended to the savedLocations file.
-    	
+    	System.out.println("... savedCoordinates");    	
+
     	//Update the Locations ComboBox with new additions
     	ttfSave.removeAllItems(); //re-populate the ComboBox
+    	System.out.println("removed items");    	
+
 		getSavedLocations(); //run through file to get all locations
 		for (int i=0; i<loc.size(); i++)
 			ttfSave.addItem(loc.get(i));
 		System.out.println("update combobox");
-		
+		mapIsUp = 0;
     	frame.dispose(); 
         startTaskAction();
     }
@@ -571,7 +576,7 @@ private void initComponents() {
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		
   		//---- ttfSave ----
-  		   	//ttfSave.removeAllItems();
+  		   	ttfSave.removeAllItems();
   		    //JComboBox ttfSave = new JComboBox();
   			getSavedLocations(); //grabs a new list
   			for (int i=0; i<loc.size(); i++) //populates this list using a arrayList
@@ -582,12 +587,16 @@ private void initComponents() {
   			//Action Listener to update the coordinates on selected Location
   			ttfSave.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
+  				  if (mapIsUp == 0) {	
   				  Object contents = ttfSave.getSelectedItem(); //grabs users selection
-  			      //System.out.println(contents);
-  			      String stringCoords = contents.toString(); 
+  			      System.out.println(contents);
+  			      if (contents != null){
+  			    	  stringCoords = contents.toString(); 
   			      setCoords = stringCoords.split("\\s+");
   			      ttfLongi.setText(setCoords[1]); //sets the texts in the longitude and latitude fields to coordinates selected
   			      ttfLati.setText(setCoords[0]);
+  			      }
+  			      }
   				}
   			});
   		
