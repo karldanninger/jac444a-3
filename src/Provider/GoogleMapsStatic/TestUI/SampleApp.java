@@ -161,6 +161,22 @@ private void _setupTask() {
               ? "null"
               : value.toString()));
           if (_img != null) {
+            sout("********************************");
+            sout("            INSTRUCTIONS");
+            sout("********************************");
+            sout("Click anywhere on the loaded");
+            sout("map and it will save the");
+            sout("coordinates and open up a new");
+            sout("window with those coordinates.");
+            sout("");
+            sout("The clicked coordinates are");
+            sout("saved under a combo box in");
+            sout("this window under get quit.");
+            sout("********************************");
+
+
+
+
             _displayImgInFrame();
           }
           else _displayRespStrInFrame();
@@ -213,24 +229,12 @@ private void _displayImgInFrame() {
   //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
   JLabel imgLbl = new JLabel(new ImageIcon(_img));
-  JLabel bottom = new JLabel(sentLbl);
-  JLabel under = new JLabel(getCoords);
-  bottom.setSize(_img.getWidth(), _img.getHeight());
   imgLbl.setToolTipText(MessageFormat.format("<html>Image downloaded from URI<br>size: w={0}, h={1}</html>",
                                              _img.getWidth(), _img.getHeight()));
-  
-  Container f = frame.getContentPane();
-  JPanel jp2 = new JPanel();
-  jp2.setLayout(new GridLayout(2,1));
-  jp2.setBackground( Color.yellow );
-  jp2.add(bottom);
-  jp2.add(under);
-  f.setLayout(new BorderLayout());
-  f.add(imgLbl);
-  f.add(jp2, BorderLayout.SOUTH);
 
   GUIUtils.centerOnScreen(frame);
   frame.setVisible(true);
+  frame.setContentPane(imgLbl);
   frame.pack();
   frame.setResizable(false);
   
@@ -267,7 +271,7 @@ private void _displayImgInFrame() {
         sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
         sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
     	getCoords = "sentX:" + sentX + " sentY: " + sentY;
-
+sout("try");
     	ttfLati.setText(Double.toString(sentX));
     	ttfLongi.setText(Double.toString(sentY));
     	
