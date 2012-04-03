@@ -46,7 +46,7 @@ private String sentLbl = resetMsg;
 private int clickX, clickY, counter1, countThis;
 private int mapIsUp = 0;
 private int counter = 1;
-private double sentX, sentY, pixelX, pixelY;
+private double sentX, sentY, pixelX, pixelY, sendPixelX, sendPixelY;
 public ArrayList<String> loc = new ArrayList<String>();
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // main method...
@@ -534,14 +534,20 @@ private void initComponents() {
 		                counter1 = 0;
   		              }
   		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){
-		              for(int i = 19; i > 14; i--){
+		              for(int i = 14; i < 19; i++){
 		                if(Integer.parseInt(ttfZoom.getText()) == i){
-	  		              countThis = 14-i;
+	  		              countThis = i-14;
 	  		              do{
 	  		                counter = counter*2;
 		            	    pixelX = 0.000084525/counter;//Values per Latitude
 		            	    pixelY = 0.00006725/counter;//Values per Longitude
+		            	    System.out.print("counter:");
+		            	    System.out.println(counter);
+		            	    System.out.print("counterThis:");
+		            	    System.out.println(countThis);		            	    
   		            	    counter1++;
+		            	    System.out.print("counter1:");
+		            	    System.out.println(counter1);
 	  		              }while(counter1 != countThis);
 	  		            }
 		                counter = 1;//Resetters
@@ -551,6 +557,12 @@ private void initComponents() {
 		              pixelX = 0.000084525;
 		              pixelY = 0.00006725;
 		            }
+  		  			
+  		          BigDecimal sendPixelX = new BigDecimal(pixelX);
+  		          BigDecimal sendPixelY = new BigDecimal(pixelY);
+  		          
+  		          pixelX = (sendPixelX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+  		          pixelY = (sendPixelY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
   				}
   			});
   			panel1.add(btnGetMap, new TableLayoutConstraints(5, 0, 5, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
