@@ -252,16 +252,16 @@ private void _displayImgInFrame() {
         	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
         	System.out.println("Top left");
         }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
         	System.out.println("Bottom Right");
         }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
         	System.out.println("Bottom Left");
         }else{
-        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * 0.000084);// 0.000084 1 pixel per latitude
-        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * 0.000069);// 0.000069 1 pixel per longitude
+        	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);// 0.000084 1 pixel per latitude
+        	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);// 0.000069 1 pixel per longitude
         	System.out.println("Top Right");
         }
 
@@ -525,30 +525,31 @@ private void initComponents() {
   		                  countThis = 14-i;
   		                  do{
   		            	    counter = counter*2;
-  		            	    pixelX = 0.000084525*counter;
-  		            	    pixelY = 0.00006725*counter;
-  		            	    System.out.println("0-13");
-  		            	    System.out.println(counter);
+  		            	    pixelX = 0.000084525*counter;//Values per Latitude
+  		            	    pixelY = 0.00006725*counter;//Values per Longitude
   		            	    counter1++;
-  		            	    System.out.println(countThis);
   		                  }while(counter1 != countThis);
   		            	}
+		                counter = 1;//Resetters
 		                counter1 = 0;
-		                counter = 1;
   		              }
   		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){
 		              for(int i = 19; i > 14; i--){
 		                if(Integer.parseInt(ttfZoom.getText()) == i){
-		            	  counter = counter*2;
-		            	  pixelX = 0.000084525/counter;
-		            	  pixelY = 0.00006725/counter;
-  		            	  System.out.println("15-19");
-		            	}
+	  		              countThis = 14-i;
+	  		              do{
+	  		                counter = counter*2;
+		            	    pixelX = 0.000084525/counter;//Values per Latitude
+		            	    pixelY = 0.00006725/counter;//Values per Longitude
+  		            	    counter1++;
+	  		              }while(counter1 != countThis);
+	  		            }
+		                counter = 1;//Resetters
+		                counter1 = 0;        
 		              }
 		            } else {
 		              pixelX = 0.000084525;
 		              pixelY = 0.00006725;
-		              System.out.println("14");
 		            }
   				}
   			});
