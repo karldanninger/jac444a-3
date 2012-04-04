@@ -3,6 +3,12 @@
 After creating the JAR files, I've imported the JAR files into Eclipse again. I've checked that there's no compilation error. I will lose 50% if that's not the case.
 
 Instructions:
+1. Drag the "Provider" folder into "src"
+2. Right click "SampleApp.java"
+3. Click Run > Java Application
+4. Enter Coordinates
+5. Press Get Map
+6. Read the instructions in the JTextArea
 
 
 Proposal for ASSIGNMENT2 :
