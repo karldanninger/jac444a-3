@@ -41,8 +41,6 @@ private BufferedImage _img;
 private String _respStr, getCoords;
 private String[] setCoords;
 private String stringCoords;
-private String resetMsg = "Please click anywhere on the image to view those Coordinates: ";
-private String sentLbl = resetMsg;
 private int clickX, clickY, counter1, countThis;
 private int mapIsUp = 0;
 private int counter = 1;
@@ -243,23 +241,22 @@ private void _displayImgInFrame() {
     	
     	System.out.println("Mouse Listener:  Mouse Clicked!");
     	mapIsUp = 1;
-       	sentLbl = resetMsg;
     	sentX = 0.00;
     	clickX = e.getX();//Latitude
     	clickY = e.getY();//Longitude
-        if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){
+        if((clickX < (_img.getWidth()/2)) && (clickY < (_img.getHeight()/2))){//1st quadrant positive values
         	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);//Add to latitude
         	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);//Add to Longitude
         	System.out.println("Top left");
-        }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        }else if((clickX > (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){//2nd quadrant negative values
         	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);
         	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Bottom Right");
-        }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){
+        }else if((clickX < (_img.getWidth()/2)) && (clickY > (_img.getHeight()/2))){//3rd quadrant 1 positive 1 negative
         	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getWidth()/2))+clickX) * pixelX);
         	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Bottom Left");
-        }else{
+        }else{//3rd quadrant 1 positive 1 negative
         	sentX = Double.parseDouble(ttfLati.getText())+(((-1*(_img.getHeight()/2))+clickX) * pixelX);
         	sentY = Double.parseDouble(ttfLongi.getText())+(((_img.getHeight()/2)-clickY) * pixelY);
         	System.out.println("Top Right");
@@ -268,14 +265,13 @@ private void _displayImgInFrame() {
         BigDecimal toCoordsX = new BigDecimal(sentX);
         BigDecimal toCoordsY = new BigDecimal(sentY);
         
-        sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
+        sentX = (toCoordsX.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();//allows values of up to 6 decimal places
         sentY = (toCoordsY.setScale(6,BigDecimal.ROUND_HALF_UP)).doubleValue();
     	getCoords = sentX + " " + sentY;
     	ttfLati.setText(Double.toString(sentX));
     	ttfLongi.setText(Double.toString(sentY));
     	
     	System.out.println("... saving Coordinates");    	
-    	
     	saveLocation(getCoords); //pass getCoords through saveLocation. this string is appended to the savedLocations file.
     	System.out.println("... savedCoordinates");    	
 
@@ -288,8 +284,8 @@ private void _displayImgInFrame() {
 			ttfSave.addItem(loc.get(i));
 		System.out.println("update combobox");
 		mapIsUp = 0;
-    	frame.dispose(); 
-        startTaskAction();
+    	frame.dispose(); //closes window
+        startTaskAction(); //pops up a new window
     }
     
     public void saveLocation(String xy) {    	
@@ -510,35 +506,35 @@ private void initComponents() {
   			btnGetMap.addActionListener(new ActionListener() {
   				public void actionPerformed(ActionEvent e) {
   					startTaskAction();
-  		  			if(Integer.parseInt(ttfZoom.getText()) < 14){
+  		  			if(Integer.parseInt(ttfZoom.getText()) < 14){//coding for zoom values under 14
   		              for(int i = 0; i < 14; i++){
   		                if(Integer.parseInt(ttfZoom.getText()) == i){
-  		                  countThis = 14-i;
+  		                  countThis = 14-i;//gets difference
   		                  do{
-  		            	    counter = counter*2;
+  		            	    counter = counter*2;//found out code zooms in powers of 2.
   		            	    pixelX = 0.000084525*counter;//Values per Latitude, trial and error method used to find these numbers.
   		            	    pixelY = 0.00006725*counter;//Values per Longitude
   		            	    counter1++;
-  		                  }while(counter1 != countThis);
+  		                  }while(counter1 != countThis);//loops the amount of differences 
   		            	}
 		                counter = 1;//Resetters
 		                counter1 = 0;
   		              }
-  		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){
+  		            }else if(Integer.parseInt(ttfZoom.getText()) > 14){//coding for zoom values over 14
 		              for(int i = 14; i < 19; i++){
 		                if(Integer.parseInt(ttfZoom.getText()) == i){
-	  		              countThis = i-14;
+	  		              countThis = i-14;//gets difference
 	  		              do{
 	  		                counter = counter*2;
 		            	    pixelX = 0.000084525/counter;//Values per Latitude
 		            	    pixelY = 0.00006725/counter;//Values per Longitude	            	    
   		            	    counter1++;
-	  		              }while(counter1 != countThis);
+	  		              }while(counter1 != countThis);//loops amount of differences
 	  		            }
 		                counter = 1;//Resetters
 		                counter1 = 0;        
 		              }
-		            } else {
+		            } else {//coding for zoom default value of 14.
 		              pixelX = 0.000084525;
 		              pixelY = 0.00006725;
 		            }
