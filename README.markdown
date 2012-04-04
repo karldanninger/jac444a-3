@@ -28,6 +28,9 @@ If time permits:
 
 [Karl's Log](./jac444a-3/blob/master/karl-log) ~ [Ronito's Log](./jac444a-3/blob/master/ronito-log)
 
+# TIME LINE:
+https://github.com/kdanninger/jac444a-3/network
+
 # Main CHANGELOG :
 
 March 18 ____________________
