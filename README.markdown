@@ -1,5 +1,10 @@
 # JAC444: Assignment 2 
 
+After creating the JAR files, I've imported the JAR files into Eclipse again. I've checked that there's no compilation error. I will lose 50% if that's not the case.
+
+Instructions:
+
+
 Proposal for ASSIGNMENT2 :
 Feature Set:
 
