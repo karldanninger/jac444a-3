@@ -4,11 +4,12 @@ After creating the JAR files, I've imported the JAR files into Eclipse again. I'
 
 Instructions RUNNING IN ECLIPSE:
 1. Drag the "Provider" folder into "src"
-2. Right click "SampleApp.java"
-3. Click Run > Java Application
-4. Enter Coordinates
-5. Press Get Map
-6. Read the instructions in the JTextArea
+2. Expand "src" then expand Provider.GoogleMapsStatic.TestUI
+3. Right click "SampleApp.java"
+4. Click Run > Java Application
+5. Enter Coordinates
+6. Press Get Map
+7. Read the instructions in the JTextArea
 
 
 Proposal for ASSIGNMENT2 :
